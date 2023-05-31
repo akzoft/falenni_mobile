@@ -1,0 +1,45 @@
+import React, { FC } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+interface Props {
+  name: string;
+  age: number;
+}
+
+const RelatedProductCard: FC<Props> = ({ name, age }) => {
+  return (
+    <View style= { styles.container } >
+    <Text style={ styles.text }> Name: { name } </Text>
+      < Text style = { styles.text } > Age: { age } </>
+        < /View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
+
+export default RelatedProductCard;
+
+
+// const { products } = useSelector((state: RootState) => state?.product)
+
+
+export const checking = () => async (dispatch) => {
+  try {
+    const token = await AsyncStorage.getItem('cookie');
+    if (!token) throw ""
+    const res = await axios.post(`${api}/api/user/checking`, null, { headers: { token } });
+    if (!res.data) dispatch(logout())
+  } catch (error) {
+    dispatch(logout())
+  }
+}
